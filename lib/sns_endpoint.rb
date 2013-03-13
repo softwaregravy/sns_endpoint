@@ -22,8 +22,8 @@ module SnsEndpoint
         sns = SnsEndpoint::AWS::SNS::Message.new json
         if sns.authentic?
           if sns.type == :SubscriptionConfirmation
-            if SnsEndpoint.topics_list.include? json['TopicArn']
-              HTTParty.get json['SubscribeURL']
+            if SnsEndpoint.topics_list.include? sns.topic_arn
+              HTTParty.get sns.subscribe_url
               SnsEndpoint.subscribe_proc.call(json)
             end
           elsif sns.type == :Notification
