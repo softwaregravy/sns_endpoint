@@ -108,6 +108,10 @@ module SnsEndpoint
           JSON.parse json
         end
 
+        def to_s
+          canonical_string 
+        end 
+
         protected
         def decode raw
           Base64.decode64 raw
